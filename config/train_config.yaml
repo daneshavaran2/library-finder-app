@@ -1,0 +1,38 @@
+# RTV Model Training Configuration
+model:
+  name: "RTVNet"
+  backbone: "resnet50" 
+  pretrained: true
+  num_joints: 17
+  num_garment_classes: 10
+
+dataset:
+  data_root: "data/"
+  garment_type: null  # null for all garments, or specific type like "shirt"
+  image_size: [512, 512]
+
+training:
+  epochs: 100
+  batch_size: 8
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  num_workers: 4
+  checkpoint_dir: "checkpoints/"
+  log_dir: "logs/"
+  
+scheduler:
+  type: "cosine"
+  
+augmentation:
+  horizontal_flip: 0.5
+  rotation: 10
+  color_jitter: 0.2
+  brightness: 0.1
+  contrast: 0.1
+  
+loss:
+  perceptual_weight: 1.0
+  adversarial_weight: 0.1
+  identity_weight: 5.0
+  pose_weight: 1.0
+  segmentation_weight: 1.0
